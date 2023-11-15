@@ -4,6 +4,8 @@ import {
   UserGroupIcon,
   HomeIcon,
   DocumentDuplicateIcon,
+  UserIcon,
+  PowerIcon,
 } from "@heroicons/react/24/outline";
 
 import { usePathname } from "next/navigation";
@@ -21,6 +23,15 @@ const links = [
     icon: DocumentDuplicateIcon,
   },
   { name: "Customers", href: "/dashboard/customers", icon: UserGroupIcon },
+];
+
+const headerLinks = [
+  { name: "Profile", href: "/profile", icon: UserIcon },
+  {
+    name: "Sign out",
+    href: "/Logout",
+    icon: PowerIcon,
+  },
 ];
 
 export default function NavLinks() {
@@ -42,6 +53,33 @@ export default function NavLinks() {
             )}
           >
             <LinkIcon className="w-6" />
+            <p className="hidden md:block">{link.name}</p>
+          </Link>
+        );
+      })}
+    </>
+  );
+}
+
+export function HeaderLinks() {
+  const pathname = usePathname();
+
+  return (
+    <>
+      {headerLinks.map((link) => {
+        const LinkIcon = link.icon;
+        return (
+          <Link
+            key={link.name}
+            href={link.href}
+            className={clsx(
+              "flex items-center justify-center gap-2 rounded-md bg-gray-50 p-3 text-sm   hover:text-blue-600 ",
+              {
+                " text-blue-600": pathname === link.href,
+              }
+            )}
+          >
+            <LinkIcon className="w-4" />
             <p className="hidden md:block">{link.name}</p>
           </Link>
         );
